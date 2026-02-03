@@ -1,53 +1,42 @@
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0f172a;
-  font-family: Arial, sans-serif;
+let messageIndex = 0;
+let noClickCount = 0;
+
+const messages = [
+  "No 😒",
+  "Are you sure?",
+  "Think again 😏",
+  "Last chance!",
+  "You have no choice 😈"
+];
+
+function handleNoClick() {
+  const noButton = document.querySelector(".no-button");
+  const yesButton = document.querySelector(".yes-button");
+  const img = document.getElementById("reactionImage");
+
+  // Change No button text
+  noButton.textContent = messages[messageIndex];
+  messageIndex = (messageIndex + 1) % messages.length;
+
+  // Grow Yes button
+  const currentSize = parseFloat(
+    window.getComputedStyle(yesButton).fontSize
+  );
+  yesButton.style.fontSize = `${currentSize * 1.5}px`;
+
+  // Increase No click count
+  noClickCount++;
+
+  // Image switching (4 images)
+  if (noClickCount === 1) {
+    img.src = "img2.jpg";
+  } else if (noClickCount === 2) {
+    img.src = "img3.jpg";
+  } else if (noClickCount >= 3) {
+    img.src = "img4.jpg";
+  }
 }
 
-.container {
-  text-align: center;
-}
-
-h1 {
-  color: white;
-  font-size: 42px;
-}
-
-h1 span {
-  color: #9eff00;
-}
-
-.reaction-img {
-  width: 240px;
-  margin: 20px auto;
-  display: block;
-  border-radius: 12px;
-}
-
-.buttons {
-  margin-top: 20px;
-}
-
-button {
-  padding: 15px 30px;
-  font-size: 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.yes-button {
-  background: #22c55e;
-  color: white;
-}
-
-.no-button {
-  background: #ef4444;
-  color: white;
+function handleYesClick() {
+  window.location.href = "yes.html";
 }
